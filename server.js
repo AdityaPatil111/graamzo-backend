@@ -1,31 +1,26 @@
-express=require('express');
-const app=express();
+// require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+
+const productRoutes = require("./routes/productRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+
+const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-// admin=require('firebase-admin');
-// credentials=require('./google-services.json');
-// admin.initializeApp({
-//     credential: admin.credential.cert(credentials)
-// });
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);
 
-// app.post('/add_user',(req,res)=>{
-//     const userResponse=admin.auth().createUser({
-//         email:req.body.email,
-//         password:req.body.password,
-//     });
-//     console.log('User creation initiated:', userResponse);
-//     // res.json(userResponse)
-//     userResponse.then((userRecord) => {
-//         res.status(201).send(`User created: ${userRecord.uid}`);
-//     }).catch((error) => {
-//         console.error('Error creating user:', error);
-//         res.status(500).send('Error creating user');
-//     });
-// });
-
-app.get('/test_api',(req,res)=>{
-    res.send('Hello World');
+app.get("/", (req, res) => {
+  res.send("E-commerce API running");
 });
-app.listen(5000,()=>{
-    console.log('Server is running on port 5000');
+
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });
