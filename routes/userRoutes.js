@@ -1,8 +1,16 @@
-const express = require("express");
+import express from "express";
+import {
+    createUserProfile,
+    getUsers,
+    getUserById
+} from "../controllers/userController.js";
+
 const router = express.Router();
-const verifyToken = require("../middleware/authMiddleware");
-const userController = require("../controllers/userController");
 
-router.post("/create-profile", verifyToken, userController.createProfile);
+router.post("/create-profile", createUserProfile);
 
-module.exports = router;
+router.get("/get-users", getUsers);
+
+router.get("/get-singal-user/:id", getUserById);
+
+export default router;
